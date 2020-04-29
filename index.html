@@ -18,7 +18,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in todos" v-bind:key="item.id">
+        <tr v-for="item in computedTodos" v-bind:key="item.id">
           <th>{{ item.id }}</th>
           <td>{{ item.comment }}</td>
           <td class="state">
@@ -34,6 +34,12 @@
         </tr>
       </tbody>
     </table>
+
+    <label v-for="label in options">
+      <input type="radio"
+        v-model="current"
+        v-bind:value="label.value">{{ label.label }}
+    </label>
 
     <h2>新しい作業の追加</h2>
     <form class="add-form" v-on:submit.prevent="doAdd">

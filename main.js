@@ -18,7 +18,13 @@ var todoStorage = {
 const app = new Vue({
   el: '#app',
   data: {
-    todos: []
+    todos: [],
+    options: [
+      { value: -1, labe: 'すべて' },
+      { value: 0, label: '作業中' },
+      { value: 1, label: '完了' }
+    ],
+    current: -1
   },
   methods: {
     // ToDo 追加の処理
@@ -40,6 +46,13 @@ const app = new Vue({
     doRemove: function (item) {
       var index = this.todos.indexOf(item)
       this.todos.splice(index, 1)
+    }
+  },
+  computed: {
+    computedTodos: function () {
+      return this.todos.filter(function (el) {
+        return this.current < 0 ? true : this.current === el.state
+      }, this)
     }
   },
   watch: {
